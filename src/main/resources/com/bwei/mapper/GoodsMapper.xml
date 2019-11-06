@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwei.dao.GoodsDao">
+
+	<select id="getGoodsAll" parameterType="com.bwei.beans.Goods" resultType="com.bwei.beans.Goods">
+	
+	
+		SELECT goods.*,brand.bname,goodskind.sname FROM brand,goods,goodskind WHERE brand.bid = goods.bid AND goods.sid = goodskind.sid
+	
+	</select>
+	
+	<select id="getBrandAll" resultType="com.bwei.beans.Brand">
+	
+		select * from brand
+	
+	</select>
+
+	<select id="getGoodsKindAll" resultType="com.bwei.beans.GoodsKind">
+	
+		select * from goodskind
+	
+	</select>
+	
+	<insert id="addGoods" parameterType="com.bwei.beans.Goods" statementType="CALLABLE">
+		{
+			call addGoods(#{gcname,mode=IN,jdbcType=VARCHAR},#{gename,mode=IN,jdbcType=VARCHAR},#{gsize,mode=IN,jdbcType=DOUBLE},#{gprice,mode=IN,jdbcType=DOUBLE},#{gsum,mode=IN,jdbcType=INTEGER},#{glabel,mode=IN,jdbcType=VARCHAR},#{gpic,mode=IN,jdbcType=VARCHAR},#{bid,mode=IN,jdbcType=INTEGER},#{sid,mode=IN,jdbcType=INTEGER})
+		}
+	</insert>
+</mapper>
